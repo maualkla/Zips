@@ -45,6 +45,7 @@ class Zip
   #   * offset - document to start results
   #   * limit - number of documents to include
   def self.all(prototype={}, offset=0, limit=50)
+    offset = offset * 50
     #map internal :population term to :pop document term
     tmp = {} #hash needs to stay in stable order provided
 
