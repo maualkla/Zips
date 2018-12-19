@@ -44,7 +44,7 @@ class Zip
   #   * sort - hash expressing multi-term sort order
   #   * offset - document to start results
   #   * limit - number of documents to include
-  def self.all(prototype={}, sort={:population=>1}, offset=0, limit=100)
+  def self.all(prototype={}, sort={:population=>1}, offset||=0, limit||=50)
     #map internal :population term to :pop document term
     tmp = {} #hash needs to stay in stable order provided
     sort.each {|k,v| 
@@ -76,25 +76,25 @@ class Zip
   # This method uses the all() method as its implementation
   # and returns instantiated Zip classes within a will_paginate
   # page
-  def self.paginate(params)
-    Rails.logger.debug("paginate(#{params})")
-    page=(params[:page] ||= 1).to_i
-    limit=(params[:per_page] ||= 30).to_i
-    offset=(page-1)*limit
-    sort=params[:sort] ||= {}
+  def self.paginate(page)
+    # Rails.logger.debug("paginate(#{params})")
+    # page=(params[:page] ||= 1).to_i
+    # limit=(params[:per_page] ||= 30).to_i
+    # offset=(page-1)*limit
+    # sort=params[:sort] ||= {}
 
-    #get the associated page of Zips -- eagerly convert doc to Zip
-    zips=[]
-    all(params, sort, offset, limit).each do |doc|
-      zips << Zip.new(doc)
-    end
+    # #get the associated page of Zips -- eagerly convert doc to Zip
+    # zips=[]
+    # all(params, sort, offset, limit).each do |doc|
+    #   zips << Zip.new(doc)
+    # end
 
-    #get a count of all documents in the collection
-    total=all(params, sort, 0, 1).count
+    # #get a count of all documents in the collection
+    # total=all(params, sort, 0, 1).count
     
-    WillPaginate::Collection.create(page, limit, total) do |pager|
-      pager.replace(zips)
-    end    
+    # WillPaginate::Collection.create(page, limit, total) do |pager|
+    #   pager.replace(zips)
+    # end    
   end
 
   # locate a specific document. Use initialize(hash) on the result to 

@@ -4,8 +4,8 @@ class ZipsController < ApplicationController
   # GET /zips
   # GET /zips.json
   def index
-    @page ||= 1
-    @zips = Zip.all #.offset(25).limit(25)
+    
+    @zips = Zip.all
   end
 
   # GET /zips/1
