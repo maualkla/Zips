@@ -4,8 +4,9 @@ class ZipsController < ApplicationController
   # GET /zips
   # GET /zips.json
   def index
-    
-    @zips = Zip.all
+    page ||= 0
+    tope = 150
+    @zips = Zip.all({}, page, tope)
   end
 
   # GET /zips/1
