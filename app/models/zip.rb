@@ -127,7 +127,7 @@ class Zip
 
     self.class.collection
               .find(_id:@id)
-              .update_one(:$set=>updates)
+              .update_one(_id:@id, city:updates["city"], state:updates["state"], pop:updates["pop"])
   end
 
   # remove the document associated with this instance form the DB
